@@ -1,0 +1,75 @@
+<html>
+<head>
+	<title>Colour picker helper</title>
+	<style>
+		:root {
+			--color: #ff9f80;
+			--opacity: 0.4;
+		}
+
+		.wrap {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 24px;
+		}
+
+		.strong {
+			display: inline-block;
+			height: 120px;
+			width: 10px;
+			background: var(--color);
+		}
+
+		.soft {
+			display: inline-block;
+			height: 120px;
+			width: 160px;
+			background: var(--color);
+			opacity: var(--opacity);
+		}
+	</style>
+</head>
+<body>
+	<p>Use this file to easily pick new colour values for the extension. Simply adjust the `--color` CSS custom property in the devTools.</p>
+	<div class="wrap"></div>
+
+	<script>
+		const colors = [
+			'#f97b00',
+			'#ff9f80',
+			'#fba96a',
+			'#fbbc58',
+			'#f9cb00',
+			'#f3f01f',
+			'#d7f900',
+			'#afd641',
+			'#b3cf00',
+			'#72cf00',
+			'#54b30b',
+			'#99dc79',
+			'#00a816',
+			'#65dab6',
+			'#00e4c9',
+			'#7de1f3',
+			'#2dc1dc',
+			'#4a7bf1',
+			'#0400ff',
+			'#5700f9',
+			'#9499f1',
+			'#b069f9',
+			'#c694f1',
+			'#ce6cc9',
+			'#f97e82',
+			'#f90008',
+		];
+		const fragment = document.createDocumentFragment();
+		colors.forEach((color) => {
+			const item = document.createElement('div');
+			item.style.setProperty('--color', color);
+			item.innerHTML = '<div class="strong"></div><div class="soft"></div>';
+			fragment.appendChild(item);
+		});
+		document.querySelector('.wrap').appendChild(fragment);
+	</script>
+</body>
+</html>

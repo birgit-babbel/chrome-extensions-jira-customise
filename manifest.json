@@ -1,0 +1,19 @@
+{
+  "name": "Jira customise",
+  "description": "Customise your Jira sprint board",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_title": "Customise Jira Sprint board"
+  },
+  "background": {
+    "service_worker": "serviceWorker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://your-jira-domain.com/path/to/your/boards/123*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "permissions": ["storage"]
+}
