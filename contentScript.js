@@ -40,7 +40,16 @@
 			const collectSubtaskWrappers = () => {
 				const subtaskWrappers = document.querySelectorAll('[data-testid="software-board.board-container.board.card-group.card-group"]');
 				subtaskWrappers.forEach((subtaskWrapper) => {
-					const cardNumber = subtaskWrapper.ariaLabel.replace('These tasks are subtasks of ', '');
+					let cardNumber;
+
+					// subtask wrappers that are in a different column than the parent ticket
+					const cardNumberElem = subtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"] > span:first-child');
+					if (cardNumberElem) {
+						cardNumber = cardNumberElem.textContent;
+					} else {
+						// TODO find card number for subtask wrappers in the same column as their parent tickets
+					}
+
 					if (!cardNumber) return;
 
 					addCardNumberScaffoldingIfNotExists(cardNumber);
