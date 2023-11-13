@@ -23,42 +23,53 @@
 				}
 			};
 
-			const collectTickets = () => {
-				const allCardElems = document.querySelectorAll('[data-component-selector="platform-board-kit.ui.card-container"]');
-				allCardElems.forEach((cardElem) => {
-					// ignore sub-task cards to get only main tickets
-					if (cardElem.closest('[data-testid="software-board.board-container.board.card-group.card-group"]')) return;
+			const collectTicketsAndSubtaskWrappers = () => {
+				const columnSelector = '[data-testid="software-board.board-container.board.virtual-board.fast-virtual-list.fast-virtual-list-wrapper"]';
+				const allTicketsAndSubtaskWrappers = document.querySelectorAll(`${columnSelector} > div > div`);
 
-					const cardNumber = cardElem.id.replace('card-', '');
-					if (!cardNumber) return;
+				allTicketsAndSubtaskWrappers.forEach((ticketOrSubtaskWrapper, index) => {
+					if (ticketOrSubtaskWrapper.getAttribute('data-testid') === 'software-board.board-container.board.card-container.card-with-icc') {
+						// this is a ticket
 
-					addCardNumberScaffoldingIfNotExists(cardNumber);
-					cardNumberCollection[cardNumber].ticket = cardElem;
-				});
-			};
+						let cardNumber;
+						const cardElem = ticketOrSubtaskWrapper.querySelector('[id^="card-"]');
+						if (cardElem) {
+							cardNumber = cardElem.id.replace('card-', '');
+						}
 
-			const collectSubtaskWrappers = () => {
-				const subtaskWrappers = document.querySelectorAll('[data-testid="software-board.board-container.board.card-group.card-group"]');
-				subtaskWrappers.forEach((subtaskWrapper) => {
-					let cardNumber;
+						if (!cardNumber) return;
 
-					// subtask wrappers that are in a different column than the parent ticket
-					const cardNumberElem = subtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"] > span:first-child');
-					if (cardNumberElem) {
-						cardNumber = cardNumberElem.textContent;
+						addCardNumberScaffoldingIfNotExists(cardNumber);
+						cardNumberCollection[cardNumber].ticket = ticketOrSubtaskWrapper;
 					} else {
-						// TODO find card number for subtask wrappers in the same column as their parent tickets
+						// this is a subtask wrapper
+
+						let cardNumber;
+						const cardNumberElem = ticketOrSubtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"] > span:first-child');
+
+						if (cardNumberElem) {
+							// this is a subtask wrapper in a different column than the parent ticket
+							cardNumber = cardNumberElem.textContent;
+						} else {
+							// this is a subtask wrapper in the same column as the parent ticket
+
+							// get the card number from the ticket right above this subtask wrapper
+							const parentTicketElem = allTicketsAndSubtaskWrappers[index - 1];
+							const cardElem = parentTicketElem?.querySelector('[id^="card-"]');
+							if (cardElem) {
+								cardNumber = cardElem.id.replace('card-', '');
+							}
+						}
+
+						if (!cardNumber) return;
+
+						addCardNumberScaffoldingIfNotExists(cardNumber);
+						cardNumberCollection[cardNumber].subtaskWrappers.push(ticketOrSubtaskWrapper);
 					}
-
-					if (!cardNumber) return;
-
-					addCardNumberScaffoldingIfNotExists(cardNumber);
-					cardNumberCollection[cardNumber].subtaskWrappers.push(subtaskWrapper);
 				});
 			};
 
-			collectTickets();
-			collectSubtaskWrappers();
+			collectTicketsAndSubtaskWrappers();
 
 			return cardNumberCollection;
 		};
@@ -129,8 +140,18 @@
 				const subTaskCards = subtaskWrapper.querySelectorAll('[data-component-selector="platform-board-kit.ui.card-container"]');
 				subTaskCards.forEach((subTaskCard) => {
 					const subTaskGrabberElem = subTaskCard.querySelector('[data-test-id="platform-card.ui.card.focus-container"] > div:empty');
-					subTaskGrabberElem.style.background = 'transparent';
+					if (subTaskGrabberElem) {
+						subTaskGrabberElem.style.background = 'transparent';
+					}
 				});
+
+				const subtaskWrapperHeader = subtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"]');
+				if (subtaskWrapperHeader) {
+					// this is a subtask wrapper in a different column than the parent ticket, thus, it has the card number and title in its header
+
+					// make number and title a bit darker to stand out enough on coloured backgrounds
+					subtaskWrapperHeader.style.color = '#172B4D';
+				}
 			});
 		};
 
