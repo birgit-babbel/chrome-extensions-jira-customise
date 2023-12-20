@@ -28,11 +28,11 @@
 				const allTicketsAndSubtaskWrappers = document.querySelectorAll(`${columnSelector} > div > div`);
 
 				allTicketsAndSubtaskWrappers.forEach((ticketOrSubtaskWrapper, index) => {
-					if (ticketOrSubtaskWrapper.getAttribute('data-testid') === 'platform-board-kit.ui.card.card') {
+					if (ticketOrSubtaskWrapper.getAttribute('data-testid') === 'software-board.board-container.board.card-container.card-with-icc') {
 						// this is a ticket
 
 						let cardNumber;
-						const cardElem = ticketOrSubtaskWrapper.id && ticketOrSubtaskWrapper;
+						const cardElem = ticketOrSubtaskWrapper.querySelector('[id^="card-"]');
 						if (cardElem) {
 							cardNumber = cardElem.id.replace('card-', '');
 						}
@@ -55,7 +55,7 @@
 
 							// get the card number from the ticket right above this subtask wrapper
 							const parentTicketElem = allTicketsAndSubtaskWrappers[index - 1];
-							const cardElem = parentTicketElem?.id && parentTicketElem;
+							const cardElem = parentTicketElem?.querySelector('[id^="card-"]');
 							if (cardElem) {
 								cardNumber = cardElem.id.replace('card-', '');
 							}
