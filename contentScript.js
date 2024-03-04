@@ -121,7 +121,7 @@
 
 			if (cardGroup.ticket) {
 				const ticketIdElem = cardGroup.ticket.querySelector('[role="presentation"] a span');
-				const ticketGrabberElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] > div:empty');
+				const ticketGrabberElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] div:empty');
 
 				if (ticketIdElem) {
 					ticketIdElem.style.background = backgroundSoft;
@@ -129,7 +129,7 @@
 					ticketIdElem.style.color = '#172B4D';
 				}
 				if (ticketGrabberElem) {
-					ticketGrabberElem.style.background = backgroundStrong;
+					ticketGrabberElem.style.backgroundColor = backgroundStrong;
 				}
 			}
 
@@ -139,9 +139,9 @@
 				// remove the coloured border on the left-hand side of sub-tasks
 				const subTaskCards = subtaskWrapper.querySelectorAll('[data-component-selector="platform-board-kit.ui.card-container"]');
 				subTaskCards.forEach((subTaskCard) => {
-					const subTaskGrabberElem = subTaskCard.querySelector('[data-test-id="platform-card.ui.card.focus-container"] > div:empty');
+					const subTaskGrabberElem = subTaskCard.querySelector('[data-test-id="platform-card.ui.card.focus-container"] div:empty');
 					if (subTaskGrabberElem) {
-						subTaskGrabberElem.style.background = 'transparent';
+						subTaskGrabberElem.style.backgroundColor = 'transparent';
 					}
 				});
 
