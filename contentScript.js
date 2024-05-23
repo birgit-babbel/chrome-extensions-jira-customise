@@ -130,6 +130,21 @@
 				}
 				if (ticketGrabberElem) {
 					ticketGrabberElem.style.backgroundColor = backgroundStrong;
+				} else {
+					// If no issue colours are defined in Jira, the grabber element is not in the DOM. So create one here.
+					const ticketFooterElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] [data-testid="platform-card.ui.card.card-content.footer"]');
+					if (ticketFooterElem) {
+						const fakeGrabberElem = document.createElement('div');
+						fakeGrabberElem.style.position = 'absolute';
+						fakeGrabberElem.style.top = '0';
+						fakeGrabberElem.style.left = '0';
+						fakeGrabberElem.style.height = '100%';
+						fakeGrabberElem.style.width = '4px';
+						fakeGrabberElem.style.borderTopLeftRadius = '3px';
+						fakeGrabberElem.style.borderBottomLeftRadius = '3px';
+						fakeGrabberElem.style.backgroundColor = backgroundStrong;
+						ticketFooterElem.prepend(fakeGrabberElem);
+					}
 				}
 			}
 
