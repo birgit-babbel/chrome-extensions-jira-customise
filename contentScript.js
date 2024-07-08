@@ -25,7 +25,7 @@
 
 			const collectTicketsAndSubtaskWrappers = () => {
 				const columnSelector = '[data-testid="software-board.board-container.board.virtual-board.fast-virtual-list.fast-virtual-list-wrapper"]';
-				const allTicketsAndSubtaskWrappers = document.querySelectorAll(`${columnSelector} > div > div`);
+				const allTicketsAndSubtaskWrappers = document.querySelectorAll(`${columnSelector} > li > div`);
 
 				allTicketsAndSubtaskWrappers.forEach((ticketOrSubtaskWrapper, index) => {
 					if (ticketOrSubtaskWrapper.getAttribute('data-testid') === 'software-board.board-container.board.card-container.card-with-icc') {
