@@ -121,7 +121,7 @@
 
 			if (cardGroup.ticket) {
 				const ticketIdElem = cardGroup.ticket.querySelector('[role="presentation"] a span');
-				const ticketGrabberElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] div:empty');
+				const ticketGrabberElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] [data-testid="platform-card.ui.card.card-content.footer"] > div:empty');
 
 				if (ticketIdElem) {
 					ticketIdElem.style.background = backgroundSoft;
@@ -131,7 +131,7 @@
 				if (ticketGrabberElem) {
 					ticketGrabberElem.style.backgroundColor = backgroundStrong;
 				} else {
-					// If no issue colours are defined in Jira, the grabber element is not in the DOM. So create one here.
+					// Depending on the Jira board settings, there is sometimes no grabber element in the DOM. So create one here.
 					const ticketFooterElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] [data-testid="platform-card.ui.card.card-content.footer"]');
 					if (ticketFooterElem) {
 						const fakeGrabberElem = document.createElement('div');
