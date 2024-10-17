@@ -121,30 +121,28 @@
 
 			if (cardGroup.ticket) {
 				const ticketIdElem = cardGroup.ticket.querySelector('[role="presentation"] a span');
-				const ticketGrabberElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] [data-testid="platform-card.ui.card.card-content.footer"] > div:empty');
 
 				if (ticketIdElem) {
 					ticketIdElem.style.background = backgroundSoft;
 					// make numbers a bit darker to stand out enough on coloured backgrounds
 					ticketIdElem.style.color = '#172B4D';
 				}
-				if (ticketGrabberElem) {
-					ticketGrabberElem.style.backgroundColor = backgroundStrong;
-				} else {
-					// Depending on the Jira board settings, there is sometimes no grabber element in the DOM. So create one here.
-					const ticketFooterElem = cardGroup.ticket.querySelector('[data-test-id="platform-card.ui.card.focus-container"] [data-testid="platform-card.ui.card.card-content.footer"]');
-					if (ticketFooterElem) {
-						const fakeGrabberElem = document.createElement('div');
-						fakeGrabberElem.style.position = 'absolute';
-						fakeGrabberElem.style.top = '0';
-						fakeGrabberElem.style.left = '0';
-						fakeGrabberElem.style.height = '100%';
-						fakeGrabberElem.style.width = '4px';
-						fakeGrabberElem.style.borderTopLeftRadius = '3px';
-						fakeGrabberElem.style.borderBottomLeftRadius = '3px';
-						fakeGrabberElem.style.backgroundColor = backgroundStrong;
-						ticketFooterElem.prepend(fakeGrabberElem);
-					}
+
+				// Depending on the Jira board settings, there is often no grabber element in the DOM. So create one here.
+				// Having one in the DOM is not handled here anymore because I can basically only test my team's board settings.
+				const ticketGrabberParentElem = cardGroup.ticket.querySelector('[data-testid="platform-card.ui.card.focus-container"] + div:not(:has(.custom-grabber)) [data-testid="platform-card.ui.card.card-content.footer"]')?.parentElement;
+				if (ticketGrabberParentElem) {
+					const fakeGrabberElem = document.createElement('div');
+					fakeGrabberElem.classList.add('custom-grabber');
+					fakeGrabberElem.style.position = 'absolute';
+					fakeGrabberElem.style.top = '0';
+					fakeGrabberElem.style.left = '0';
+					fakeGrabberElem.style.height = '100%';
+					fakeGrabberElem.style.width = '4px';
+					fakeGrabberElem.style.borderTopLeftRadius = '3px';
+					fakeGrabberElem.style.borderBottomLeftRadius = '3px';
+					fakeGrabberElem.style.backgroundColor = backgroundStrong;
+					ticketGrabberParentElem.prepend(fakeGrabberElem);
 				}
 			}
 
