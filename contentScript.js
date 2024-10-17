@@ -177,16 +177,38 @@
 		});
 	};
 
+	const triggerBoardCustomisation = ({ observer, observerTargetNode, observerConfig }) => {
+		// stop MutationObserver
+		// Keeping it running while manipulating the DOM would cause an infinite loop.
+		observer.disconnect();
+
+		// separate function so that e.g. early returns are possible but the MutationObserver is always restarted
+		customiseBoard();
+
+		// `customiseBoard()` might mutate the DOM. Thus, we want to restart the MutationObserver AFTER all the DOM updates
+		// have finished to prevent loops. To do so, we need two nested `requestAnimationFrame()` calls because this is called
+		// BEFORE the next repaint.
+		// I.e. this outer call fires before the next repaint
+		requestAnimationFrame(() => {
+			// fires before the _next_ next repaint
+			// ...which is effectively _after_ the next repaint
+			requestAnimationFrame(() => {
+				// restart MutationObserver
+				observer.observe(observerTargetNode, observerConfig);
+			});
+		});
+	};
+
 	const initBoardCustomisation = () => {
-		const targetNode = document.body;
+		const observerTargetNode = document.body;
 		// `attributes: false` is crucial! Otherwise, e.g. adding a class in the callback triggers a mutation, which
 		// triggers the callback again... resulting in an infinite loop.
-		const config = { attributes: false, childList: true, subtree: true };
+		const observerConfig = { attributes: false, childList: true, subtree: true };
 		const mutationsCallback = (mutationsList, observer) => {
-			customiseBoard();
+			triggerBoardCustomisation({ observer, observerTargetNode, observerConfig });
 		};
 		const observer = new MutationObserver(mutationsCallback);
-		observer.observe(targetNode, config);
+		observer.observe(observerTargetNode, observerConfig);
 	};
 
 	// Initialise customisation logic if extension action enabled flag is true
