@@ -32,7 +32,7 @@ chrome.storage.onChanged.addListener(async (changes) => {
   await setIcon(changes.isJiraCustomiseEnabled.newValue);
 });
 
-// Enable / disable customisation code when installed / updated. Uses previous setting, or falls back to enabled.
+// Enable / disable customisation code when installed / updated. Uses previous setting, or falls back to being enabled.
 chrome.runtime.onInstalled.addListener(async () => {
   await chrome.storage.sync.get('isJiraCustomiseEnabled', async (items) => {
     const isEnabled = items.isJiraCustomiseEnabled ?? true;

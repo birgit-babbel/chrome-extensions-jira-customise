@@ -8,7 +8,7 @@ The extension is optimised for Sprint Boards in Jira Cloud. I have not tested it
 
 1. Clone / download this code.
 2. Open [./manifest.json](./manifest.json) in your code editor of choice and update `content_scripts.matches` to your Jira board's URL. The extension will only affect the URLs / globs you define there. For more information on allowed values, see the [Chrome extension development documentation](https://developer.chrome.com/docs/extensions/mv3/manifest/content_scripts/#match-urls).
-3. Open [chrome://extensions/](chrome://extensions/) in Chrome.
+3. Open `chrome://extensions/` in Chrome.
 4. With "Developer mode" enabled, click "Load unpacked". Then select this extension's folder.
 5. Open or reload your Jira board tab in Chrome to see the extension in action.
 
@@ -37,7 +37,7 @@ Since there is a finite list, it can happen that multiple tickets in a sprint ge
 If that bothers you, or you want to add / remove / change any colour:
 
 1. Update the list of colours to your liking.
-2. Open [chrome://extensions/](chrome://extensions/) in Chrome and click the little reload icon (that's the arrow going in a circle) for this extension.
+2. Open `chrome://extensions/` in Chrome and click the little reload icon (that's the arrow going in a circle) for this extension, so that Chrome reads your code changes.
 3. Open or reload the tab with your Jira board to see the changes being applied.
 
 To make it a bit easier to pick new colours, you can open the [./content-scripts/features/colour-picker-helper.html](./content-scripts/features/colour-picker-helper.html) file in your browser. It shows all the colours defined in that file as card-like elements. You can play around with the colours e.g. by using the devTools without having to constantly reload the extension. Once you're happy with the colours, replace the list in [./content-scripts/features/colorize-board.js](./content-scripts/features/colorize-board.js) with your updated colour values.
