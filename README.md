@@ -57,6 +57,10 @@ If that bothers you, or you want to add / remove / change any colour:
 
 To make it a bit easier to pick new colours, you can open the [./content-scripts/features/colour-picker-helper.html](./content-scripts/features/colour-picker-helper.html) file in your browser. It shows all the colours defined in that file as card-like elements. You can play around with the colours e.g. by using the devTools without having to constantly reload the extension. Once you're happy with the colours, replace the list in [./content-scripts/features/colorize-board.js](./content-scripts/features/colorize-board.js) with your updated colour values.
 
+#### Troubleshooting: When scrolling through the Jira board, the colours of sub-tasks change
+
+When scrolling up and down the Jira board, Jira loads and unloads ticket cards for performance reasons. I.e. tickets outside the viewport are not in the DOM. Therefore, this extension cannot know the ticket IDs that are needed to apply the correct colours. Unfortunately, the extension has no way of fixing this.
+
 ## Development resources
 
 - Options page that allows users to define options for the extension: https://developer.chrome.com/docs/extensions/develop/ui/options-page
