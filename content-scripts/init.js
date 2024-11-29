@@ -1,14 +1,28 @@
 (async function() {
-	// Initialise each feature once. Only the returned functions need to be called often in the MutationObserver code.
-	const colorizeBoard = initJiraCustomiseColorizeBoard();
+	const initJiraCustomisation = async () => {
+		// Users can enable / disable features of the extension on the options page. The options are stored in chrome.storage.
+		// Get the user preferences from the storage to know which features should run.
+		const storageItems = await chrome.storage.sync.get(
+			// define which keys to fetch from the storage, and define default values
+			// see https://developer.chrome.com/docs/extensions/reference/api/storage#method-StorageArea-get
+			{ isEnabledFeatureColorize: true }
+		);
 
-	const initJiraCustomisation = () => {
+		const isEnabledFeatureColorize = !!storageItems.isEnabledFeatureColorize;
+
+		// Initialise each feature once. Only the returned functions need to be called often in the MutationObserver code.
+		let colorizeBoard;
+		if (isEnabledFeatureColorize) {
+			colorizeBoard = initJiraCustomiseColorizeBoard();
+		}
+
 		const observerTargetNode = document.body;
-		// `attributes: false` is crucial! Otherwise, e.g. adding a class in the callback triggers a mutation, which
-		// triggers the callback again... resulting in an infinite loop.
 		const observerConfig = { attributes: false, childList: true, subtree: true };
 		const mutationsCallback = (mutationsList, observer) => {
-			colorizeBoard({ observer, observerTargetNode, observerConfig });
+			// call the features
+			if (colorizeBoard) {
+				colorizeBoard({ observer, observerTargetNode, observerConfig });
+			}
 		};
 		const observer = new MutationObserver(mutationsCallback);
 		observer.observe(observerTargetNode, observerConfig);
