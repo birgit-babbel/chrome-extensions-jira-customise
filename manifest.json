@@ -12,7 +12,10 @@
   "content_scripts": [
     {
       "matches": ["https://your-jira-domain.com/path/to/your/boards/123*"],
-      "js": ["contentScript.js"]
+      "js": [
+        "content-scripts/features/colorize-board.js",
+        "content-scripts/init.js"
+      ]
     }
   ],
   "permissions": ["storage"]

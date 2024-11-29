@@ -30,7 +30,7 @@ The chosen colours are based on the tickets' IDs, i.e. they don't change even wh
 
 #### How to change the defined colours?
 
-The list of available colours is defined in [./contentScript.js](./contentScript.js).
+The list of available colours is defined in [./content-scripts/features/colorize-board.js](./content-scripts/features/colorize-board.js).
 
 Since there is a finite list, it can happen that multiple tickets in a sprint get the same colour assigned.
 
@@ -40,4 +40,4 @@ If that bothers you, or you want to add / remove / change any colour:
 2. Open [chrome://extensions/](chrome://extensions/) in Chrome and click the little reload icon (that's the arrow going in a circle) for this extension.
 3. Open or reload the tab with your Jira board to see the changes being applied.
 
-To make it a bit easier to pick new colours, you can open the [./colour-picker-helper.html](./colour-picker-helper.html) file in your browser. It shows all the colours defined in that file as card-like elements. You can play around with the colours e.g. by using the devTools without having to constantly reload the extension. Once you're happy with the colours, replace the list in [./contentScript.js](./contentScript.js) with your updated colour values.
+To make it a bit easier to pick new colours, you can open the [./content-scripts/features/colour-picker-helper.html](./content-scripts/features/colour-picker-helper.html) file in your browser. It shows all the colours defined in that file as card-like elements. You can play around with the colours e.g. by using the devTools without having to constantly reload the extension. Once you're happy with the colours, replace the list in [./content-scripts/features/colorize-board.js](./content-scripts/features/colorize-board.js) with your updated colour values.
