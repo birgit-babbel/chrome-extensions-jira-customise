@@ -41,6 +41,8 @@ The ticket's ID as well as the wrapper around the ticket's sub-tasks, if any, ge
 
 The chosen colours are based on the tickets' IDs, i.e. they don't change even when reloading the page.
 
+![Demo of colour-coding feature](./docs/demo-colour-coding.png)
+
 #### How to change the defined colours?
 
 The list of available colours is defined in [./content-scripts/features/colorize-board.js](./content-scripts/features/colorize-board.js).
