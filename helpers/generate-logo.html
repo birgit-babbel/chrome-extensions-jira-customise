@@ -1,0 +1,33 @@
+<html>
+<body>
+  <p>This is a helper file to generate the extension icon. It's not part of the extension functionality. Open the file in the browser, adjust the canvas size and the font size and position of the text on the canvas. Then save the generated PNG.</p>
+  <p>Canvas:</p>
+  <canvas id="canvas" width="128" height="128"></canvas>
+  <br/>
+  <p>Generated logo PNG based on the Canvas above:</p>
+  <img src="" />
+  <script>
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext('2d');
+
+    const objGradient = context.createLinearGradient(0, 0, 0, canvas.height);
+    objGradient.addColorStop(0, '#ff9f80');
+    objGradient.addColorStop(1 / 5, '#fbbc58');
+    objGradient.addColorStop(2 / 5, '#f3f01f');
+    objGradient.addColorStop(3 / 5, '#99dc79')
+    objGradient.addColorStop(4 / 5, '#2dc1dc');
+    objGradient.addColorStop(1, '#b069f9');
+    context.fillStyle = objGradient;
+
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    context.font = '66px Helvetica Neue,sans-serif';
+    context.fillStyle = '#444444';
+    context.fillText('Jira', 10, 84);
+
+    const dataURL = canvas.toDataURL("image/png", 1.0);
+    const imageElem = document.querySelector('img');
+    imageElem.setAttribute('src', dataURL);
+  </script>
+</body>
+</html>
