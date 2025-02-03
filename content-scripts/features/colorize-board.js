@@ -122,7 +122,7 @@ const initJiraCustomiseColorizeBoard = () => {
     const backgroundSoft = `white linear-gradient(${colorSoft}, ${colorSoft})`;
 
     if (cardGroup.ticket) {
-      const ticketIdElem = cardGroup.ticket.querySelector('[role="presentation"] a span');
+      const ticketIdElem = cardGroup.ticket.querySelector('[role="presentation"] a :is(span, div)');
 
       if (ticketIdElem) {
         ticketIdElem.style.background = backgroundSoft;
