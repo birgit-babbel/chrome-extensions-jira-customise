@@ -20,17 +20,21 @@ const initJiraCustomiseColorizeBoard = () => {
       if (!cardNumberCollection[cardNumber]) {
         cardNumberCollection[cardNumber] = {
           ticket: undefined,
-          subtaskWrappers: []
+          subtaskWrappers: [],
         };
       }
     };
 
     const collectTicketsAndSubtaskWrappers = () => {
-      const columnSelector = '[data-testid="software-board.board-container.board.virtual-board.fast-virtual-list.fast-virtual-list-wrapper"]';
+      const columnSelector =
+        '[data-testid="software-board.board-container.board.virtual-board.fast-virtual-list.fast-virtual-list-wrapper"]';
       const allTicketsAndSubtaskWrappers = document.querySelectorAll(`${columnSelector} > li > div`);
 
       allTicketsAndSubtaskWrappers.forEach((ticketOrSubtaskWrapper, index) => {
-        if (ticketOrSubtaskWrapper.getAttribute('data-testid') === 'software-board.board-container.board.card-container.card-with-icc') {
+        if (
+          ticketOrSubtaskWrapper.getAttribute('data-testid') ===
+          'software-board.board-container.board.card-container.card-with-icc'
+        ) {
           // this is a ticket
 
           let cardNumber;
@@ -47,7 +51,9 @@ const initJiraCustomiseColorizeBoard = () => {
           // this is a subtask wrapper
 
           let cardNumber;
-          const cardNumberElem = ticketOrSubtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"] > span:first-child');
+          const cardNumberElem = ticketOrSubtaskWrapper.querySelector(
+            '[data-testid="software-board.board-container.board.card-group.card-group-header"] > span:first-child'
+          );
 
           if (cardNumberElem) {
             // this is a subtask wrapper in a different column than the parent ticket
@@ -132,7 +138,9 @@ const initJiraCustomiseColorizeBoard = () => {
 
       // Depending on the Jira board settings, there is often no grabber element in the DOM. So create one here.
       // Having one in the DOM is not handled here anymore because I can basically only test my team's board settings.
-      const ticketGrabberParentElem = cardGroup.ticket.querySelector('[data-testid="platform-card.ui.card.focus-container"] + div:not(:has(.custom-grabber)) [data-testid="platform-card.ui.card.card-content.footer"]')?.parentElement;
+      const ticketGrabberParentElem = cardGroup.ticket.querySelector(
+        '[data-testid="platform-card.ui.card.focus-container"] + div:not(:has(.custom-grabber)) [data-testid="platform-card.ui.card.card-content.footer"]'
+      )?.parentElement;
       if (ticketGrabberParentElem) {
         const fakeGrabberElem = document.createElement('div');
         fakeGrabberElem.classList.add('custom-grabber');
@@ -144,8 +152,7 @@ const initJiraCustomiseColorizeBoard = () => {
         fakeGrabberElem.style.borderTopLeftRadius = '3px';
         fakeGrabberElem.style.borderBottomLeftRadius = '3px';
         fakeGrabberElem.style.backgroundColor = backgroundStrong;
-        fakeGrabberElem.style.zIndex = '10';
-        ticketGrabberParentElem.prepend(fakeGrabberElem);
+        ticketGrabberParentElem.append(fakeGrabberElem);
       }
     }
 
@@ -153,15 +160,21 @@ const initJiraCustomiseColorizeBoard = () => {
       subtaskWrapper.style.background = backgroundSoft;
 
       // remove the coloured border on the left-hand side of sub-tasks
-      const subTaskCards = subtaskWrapper.querySelectorAll('[data-component-selector="platform-board-kit.ui.card-container"]');
+      const subTaskCards = subtaskWrapper.querySelectorAll(
+        '[data-component-selector="platform-board-kit.ui.card-container"]'
+      );
       subTaskCards.forEach((subTaskCard) => {
-        const subTaskGrabberElem = subTaskCard.querySelector('[data-test-id="platform-card.ui.card.focus-container"] div:empty');
+        const subTaskGrabberElem = subTaskCard.querySelector(
+          '[data-test-id="platform-card.ui.card.focus-container"] div:empty'
+        );
         if (subTaskGrabberElem) {
           subTaskGrabberElem.style.backgroundColor = 'transparent';
         }
       });
 
-      const subtaskWrapperHeader = subtaskWrapper.querySelector('[data-testid="software-board.board-container.board.card-group.card-group-header"]');
+      const subtaskWrapperHeader = subtaskWrapper.querySelector(
+        '[data-testid="software-board.board-container.board.card-group.card-group-header"]'
+      );
       if (subtaskWrapperHeader) {
         // this is a subtask wrapper in a different column than the parent ticket, thus, it has the card number and title in its header
 
