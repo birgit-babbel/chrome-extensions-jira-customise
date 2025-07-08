@@ -144,8 +144,9 @@ const initJiraCustomiseColorizeBoard = () => {
         fakeGrabberElem.style.borderTopLeftRadius = '3px';
         fakeGrabberElem.style.borderBottomLeftRadius = '3px';
         fakeGrabberElem.style.backgroundColor = backgroundStrong;
-        fakeGrabberElem.style.zIndex = '10';
+        fakeGrabberElem.style.zIndex = '1';
         ticketGrabberParentElem.prepend(fakeGrabberElem);
+        ticketGrabberParentElem.style.isolation = 'isolate';
       }
     }
 
