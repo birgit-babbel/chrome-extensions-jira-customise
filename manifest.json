@@ -14,6 +14,7 @@
       "matches": ["https://your-jira-domain.com/path/to/your/boards/123*"],
       "js": [
         "content-scripts/features/colorize-board.js",
+        "content-scripts/features/hide-floating-rovo.js",
         "content-scripts/init.js"
       ]
     }

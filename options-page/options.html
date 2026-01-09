@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Jira customise Extension Options</title>
-  <style>
-    .button-container {
-      margin-top: 1rem;
-      display: flex;
-      gap: 1rem;
-    }
-
-    #status {
-      visibility: hidden;
-      color: green;
-
-      &.show {
-        visibility: visible;
+  <head>
+    <title>Jira customise Extension Options</title>
+    <style>
+      .button-container {
+        margin-top: 1rem;
+        display: flex;
+        gap: 1rem;
       }
-    }
-  </style>
-</head>
-<body>
-  <fieldset>
-    <legend>Enable / disable features</legend>
 
-    <div>
-      <label>
-        <input type="checkbox" id="colorize" />
-        Colour-coding of tickets in a sprint board
-      </label>
+      #status {
+        visibility: hidden;
+        color: green;
+
+        &.show {
+          visibility: visible;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <legend>Enable / disable features</legend>
+
+      <div>
+        <label>
+          <input type="checkbox" id="colorize" />
+          Colour-coding of tickets in a sprint board
+        </label>
+      </div>
+      <div>
+        <label>
+          <input type="checkbox" id="hide-floating-rovo" />
+          Hide the floating "Ask Rovo AI" button
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="button-container">
+      <button id="save">Save</button>
+      <div id="status">Options saved</div>
     </div>
-  </fieldset>
 
-  <div class="button-container">
-    <button id="save">Save</button>
-    <div id="status">Options saved</div>
-  </div>
-
-  <script src="options.js"></script>
-</body>
+    <script src="options.js"></script>
+  </body>
 </html>

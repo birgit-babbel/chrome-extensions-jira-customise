@@ -61,6 +61,18 @@ To make it a bit easier to pick new colours, you can open the [./content-scripts
 
 When scrolling up and down the Jira board, Jira loads and unloads ticket cards for performance reasons. I.e. tickets outside the viewport are not in the DOM. Therefore, this extension cannot know the ticket IDs that are needed to apply the correct colours. Unfortunately, the extension has no way of fixing this.
 
+### Hide the floating "Ask Rovo AI" button
+
+_This feature is **disabled by default** in the extension options._
+
+This feature hides the floating "Ask Rovo AI" button.
+
+The button is floating at the bottom right side. Hiding it is useful if you do not need the button and you are bothered by not seeing the content underneath it.
+
+![Floating "Ask Rovo AI" button is hiding a ticket's assignee](./docs/floating-rovo.png)
+
+**Note** that the extension only applies to the URL patterns you defined in the `manifest.json` file. I.e. if you define a board URL, the Rovo AI button is only hidden on that board.
+
 ## Development resources
 
 - Options page that allows users to define options for the extension: https://developer.chrome.com/docs/extensions/develop/ui/options-page

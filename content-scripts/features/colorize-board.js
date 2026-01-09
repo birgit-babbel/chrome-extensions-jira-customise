@@ -200,7 +200,7 @@ const initJiraCustomiseColorizeBoard = () => {
     // separate function so that e.g. early returns are possible but the MutationObserver is always restarted
     doTheActualThing();
 
-    // `customiseBoard()` might mutate the DOM. Thus, we want to restart the MutationObserver AFTER all the DOM updates
+    // `colorizeBoard()` might mutate the DOM. Thus, we want to restart the MutationObserver AFTER all the DOM updates
     // have finished to prevent loops. To do so, we need two nested `requestAnimationFrame()` calls because this is called
     // BEFORE the next repaint.
     // I.e. this outer call fires before the next repaint
